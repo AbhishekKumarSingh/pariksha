@@ -15,3 +15,6 @@ class RegistrationForm(UserCreationForm):
                 Submit('register', 'Register', css_class='btn-primary')
             )
         )
+
+    # TODO - ask for email and make it as required field
+

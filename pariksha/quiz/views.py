@@ -10,11 +10,12 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         '''
-        Return last five published question not including
-        those which are to be published in future
-        '''
+                Return last five published question not including
+                those which are to be published in future
+        '       '''
         return Question.objects.filter(
             pub_date__lte=timezone.now()).order_by('pub_date')[:5]
+
 
 class DetailView(generic.DetailView):
     template_name = 'quiz/detail.html'
@@ -29,3 +30,4 @@ class DetailView(generic.DetailView):
 class ResultView(generic.DetailView):
     model = Question
     template_name = 'quiz/result.html'
+

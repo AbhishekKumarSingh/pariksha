@@ -1,4 +1,6 @@
 <h1> Home Page </h1>
 {% if user.is_authenticated %}
+    <p> {% for messsage in messages %} {{message}} {% endfor %}</p>
     <p> Welcome, {{ user.username }} </p>
+
 {% endif %}

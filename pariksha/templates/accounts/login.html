@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
 <h1> Login yourself here </h1>
-
+<p> {% for messsage in messages %} {{message}} {% endfor %}</p>
 
 {% crispy form %}

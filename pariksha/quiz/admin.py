@@ -15,9 +15,10 @@ class QuestionInline(admin.StackedInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['question_text']}),
-        ('Add Description', {'fields': ['question_desc']}),
+        (Question, {'fields': ['quiz', 'question_text']}),
+        ('Add Description', {'fields': ['question_desc', 'score_point']}),
         ('Date information', {'fields': ['pub_date']}),
+        ('Author information', {'fields': ['author']}),
     ]
 
     inlines = [ChoiceInline]

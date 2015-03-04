@@ -19,7 +19,7 @@ class SignupView(
     generic.CreateView
 ):
     form_class = RegistrationForm
-    from_valid_message = 'Thanks for registering, go ahead and login'
+    form_valid_message = 'Thanks for registering, go ahead and login'
     model = User
     success_url = reverse_lazy('login')
     template_name = 'accounts/signup.html'

@@ -9,13 +9,14 @@ class Quiz(models.Model):
     title = models.CharField(max_length=100, blank=False)
     date_created = models.DateField(auto_now_add=True)
     author = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='quizzes')
 
     def __unicode__(self):
         return self.title
 
     def maxPossibleScore(self):
         total = 0.0
-        for question in self.question_set.all():
+        for question in self.questions_list.all():
             total = total + question.score_point
         return total
 
@@ -29,7 +30,7 @@ class Question(models.Model):
     question_desc = models.TextField(blank=True)
     score_point = models.FloatField(default=0)
     author = models.ForeignKey(User)
-    quiz = models.ForeignKey(Quiz)
+    quiz = models.ForeignKey(Quiz, related_name='questions_list')
     pub_date = models.DateTimeField('date published')
 
     def __str__(self):
@@ -51,7 +52,7 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, related_name='choices')
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
     isAnswer = models.BooleanField(default=False)
@@ -61,9 +62,13 @@ class Choice(models.Model):
 
 
 class UserResponse(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='responses')
     question = models.ForeignKey(Question)
     answer = models.ForeignKey(Choice)
+    score = models.FloatField(default=0)
 
-    def __unicode__(self):
-        return self.answer
+    def __str__(self):
+        return self.answer.choice_text
+
+    class Meta:
+        unique_together = ('user', 'question')

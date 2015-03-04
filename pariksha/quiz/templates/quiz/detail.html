@@ -4,14 +4,15 @@
 
 
 
-{% if error_message %} <p> <strong> {{error_message}} <strong> </p> {% endif %}
+{% if error_message %} <p> <strong> {{error_message}} </strong> </p> {% endif %}
 
-<form action="{% url 'quiz:index' %}" method='post'>
+<form action="{% url 'quiz:response' question.id %}" method='post'>
     {% csrf_token %}
-    {% for choice in question.choice_set.all %}
-        <input type='radio' name='choice' id='choice{{forloop.counter}}' value={{choice.id}} />
+    {% for choice in question.choices.all %}
+        <input type='radio' name='choice' id='choice{{forloop.counter}}'
+               value={{choice.id}} />
         <label for='choice{{forloop.counter}}'> {{choice.choice_text}} </label><br>
     {% endfor %}
 <br>
-<input type='submit' value='submit'/>
-
+<input type='submit' value='Next'/>
+</form>
